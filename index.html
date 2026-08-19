@@ -206,6 +206,9 @@ header .container{display:flex;align-items:center;justify-content:space-between;
 .price-card h3{font-size:20px;margin:0 0 8px;letter-spacing:-0.015em;}
 .price-amount{font-size:52px;font-weight:700;color:var(--ink);margin:14px 0 4px;letter-spacing:-0.035em;}
 .price-amount .price-period{font-size:15px;color:var(--gray);font-weight:500;letter-spacing:normal;}
+.price-amount.price-locked{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;color:var(--ink);letter-spacing:normal;margin:18px 0 10px;}
+.price-locked .lock-icon{font-size:28px;line-height:1;}
+.price-locked-text{line-height:1.35;}
 .price-list{text-align:left;margin:28px 0;list-style:none;}
 .price-list li{padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;display:flex;gap:12px;align-items:flex-start;color:var(--ink);}
 .price-list li:last-child{border-bottom:none;}
@@ -454,14 +457,14 @@ footer .logo{justify-content:center;margin-bottom:12px;}
 <section class="section" id="tarif">
 <div class="container">
 <h2 class="section-title reveal">L'investissement</h2>
-<p class="section-sub reveal">Le prix fondateur récompense ceux qui bougent vite — il disparaît le 15 septembre 2026.</p>
+<p class="section-sub reveal">Le tarif est présenté sans engagement lors de ton appel découverte gratuit. Les 10 premiers pères qui s'inscrivent profitent d'un tarif fondateur exclusif — il disparaît le 15 septembre 2026.</p>
 
 <div class="pricing-wrap">
 <div class="price-card featured reveal tilt">
 <div class="price-shine"></div>
 <span class="price-badge">🏆 Fondateur · 10 places</span>
 <h3>3 mois pour redevenir présent</h3>
-<div class="price-amount"><span class="count-up" data-target="1000">0</span>$ <span class="price-period">/ 3 mois</span></div>
+<div class="price-amount price-locked"><span class="lock-icon">🔒</span><span class="price-locked-text">Tarif fondateur<br>dévoilé sur l'appel</span></div>
 <ul class="price-list">
 <li>Suivi 1-on-1 + formation + communauté</li>
 <li>Accès immédiat dès l'achat (bonus avant le 15 sept)</li>
@@ -470,21 +473,21 @@ footer .logo{justify-content:center;margin-bottom:12px;}
 </ul>
 <div class="spots-track" id="spotsTrack"></div>
 <div class="spots-caption" id="spotsCaption"></div>
-<a href="https://calendly.com/accompagnon/bilan-temps-famille-30-min-gratuit" class="btn btn-coral btn-full magnetic" target="_blank" rel="noopener">Je réserve ma place</a>
-<p class="guarantee-line">1000$ comptant ou 2 × 500$ · Appel gratuit avant tout engagement</p>
+<a href="https://calendly.com/accompagnon/bilan-temps-famille-30-min-gratuit" class="btn btn-coral btn-full magnetic" target="_blank" rel="noopener">Je réserve mon appel gratuit</a>
+<p class="guarantee-line">Paiement en 1 ou 2 versements · Appel gratuit avant tout engagement</p>
 </div>
 
 <div class="price-card reveal tilt" style="--i:1">
 <span class="price-badge ghost">Régulier</span>
 <h3>Dès la 11e place</h3>
-<div class="price-amount"><span class="count-up" data-target="1500">0</span>$ <span class="price-period">/ 3 mois</span></div>
+<div class="price-amount price-locked"><span class="lock-icon">🔒</span><span class="price-locked-text">Tarif régulier<br>dévoilé sur l'appel</span></div>
 <ul class="price-list">
 <li>Suivi 1-on-1 + formation + communauté</li>
 <li>Accès au départ officiel de la cohorte</li>
 <li>Garantie 5h/semaine ou accompagnement prolongé gratuit</li>
 </ul>
 <a href="https://calendly.com/accompagnon/bilan-temps-famille-30-min-gratuit" class="btn btn-outline btn-full magnetic" target="_blank" rel="noopener">Réserver un appel</a>
-<p class="guarantee-line">1500$ comptant ou 2 × 750$</p>
+<p class="guarantee-line">Paiement en 1 ou 2 versements</p>
 </div>
 </div>
 
