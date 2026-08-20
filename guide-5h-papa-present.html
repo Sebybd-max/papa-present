@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Récupère 5 heures par semaine — Papa Présent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f9f9f9;
+    --ink: #313757;
+    --coral: #f66871;
+    --coral-soft: #fdeeee;
+    --plum: #734760;
+    --mauve: #b45868;
+    --card: #ffffff;
+    --muted: #8b87a0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    background: var(--ink);
+    color: #f5f4fa;
+    padding: 64px 0 56px 0;
+  }
+  .hero .logo {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 2px solid #f5f4fa; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 20px; margin-bottom: 28px;
+  }
+  .kicker {
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--coral); font-weight: 600; margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 40px; line-height: 1.15; font-weight: 700; margin: 0 0 16px 0; max-width: 560px;
+  }
+  .hero .sub { font-size: 16px; color: #cfccdb; max-width: 520px; font-weight: 300; }
+  .brandline { margin-top: 34px; font-size: 12px; color: #9a96ac; letter-spacing: 1px; }
+
+  section { padding: 52px 0; border-bottom: 1px solid #e9e6ef; }
+  section:last-of-type { border-bottom: none; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--coral); font-weight: 600; margin-bottom: 10px;
+  }
+  h2 { font-size: 26px; font-weight: 700; margin: 0 0 18px 0; line-height: 1.25; }
+  p { font-size: 14.5px; margin: 0 0 14px 0; max-width: 620px; }
+  p strong { color: var(--coral); }
+
+  .callout {
+    background: var(--card); border-left: 3px solid var(--coral); border-radius: 10px;
+    padding: 16px 20px; font-size: 14px; margin: 18px 0; max-width: 620px;
+  }
+
+  .steps { margin-top: 10px; }
+  .step { display: flex; gap: 16px; margin-bottom: 18px; align-items: flex-start; max-width: 620px; }
+  .step .n {
+    width: 30px; height: 30px; min-width: 30px; border-radius: 50%;
+    background: var(--coral); color: #fff; font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step .t { font-size: 14px; padding-top: 4px; }
+  .step .t b { color: var(--ink); display: block; font-size: 14.5px; margin-bottom: 2px; }
+
+  /* Tracker */
+  .tracker-wrap { overflow-x: auto; margin-top: 16px; }
+  table.tracker { border-collapse: collapse; font-size: 12.5px; min-width: 640px; width: 100%; }
+  table.tracker th, table.tracker td {
+    border: 1px solid #e2dfea; padding: 6px; text-align: center;
+  }
+  table.tracker th {
+    background: var(--ink); color: #f5f4fa; font-weight: 500; font-size: 11.5px;
+  }
+  table.tracker td:first-child, table.tracker th:first-child {
+    text-align: left; background: var(--card); font-weight: 600; width: 150px; padding-left: 10px;
+  }
+  table.tracker tbody tr:nth-child(odd) td:not(:first-child) { background: #ffffff; }
+  table.tracker tbody tr:nth-child(even) td:not(:first-child) { background: #f2f0f7; }
+  table.tracker input {
+    width: 44px; border: none; background: transparent; text-align: center;
+    font-family: inherit; font-size: 12.5px; color: var(--ink); padding: 4px 0;
+    border-radius: 4px;
+  }
+  table.tracker input:focus { outline: 2px solid var(--coral); background: #fff; }
+  table.tracker tfoot td {
+    background: var(--coral-soft); font-weight: 700; color: var(--plum);
+  }
+  .tracker-actions { margin-top: 12px; display: flex; gap: 10px; align-items: center; }
+  .btn {
+    border: none; border-radius: 8px; padding: 9px 16px; font-size: 12.5px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .btn-reset { background: #e9e6ef; color: var(--ink); }
+  .btn-reset:hover { background: #ddd9e6; }
+  .tracker-msg { font-size: 12.5px; color: var(--muted); }
+
+  .leak {
+    background: var(--card); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px;
+    border-left: 3px solid var(--plum); max-width: 620px;
+  }
+  .leak .lt { font-weight: 700; font-size: 14.5px; margin-bottom: 4px; }
+  .leak .lt span { color: var(--coral); margin-right: 6px; }
+  .leak .ld { font-size: 13.5px; }
+
+  .cta-box {
+    background: var(--ink); border-radius: 14px; padding: 28px 30px; color: #f5f4fa; max-width: 620px;
+  }
+  .cta-box .t1 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .cta-box .t2 { font-size: 13.5px; line-height: 1.6; color: #cfccdb; margin-bottom: 16px; }
+  .cta-box a.link {
+    display: inline-block; background: var(--coral); color: #fff; text-decoration: none;
+    padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 13.5px;
+  }
+  .cta-box a.link:hover { background: #e5545e; }
+
+  footer { text-align: center; padding: 30px 0 46px 0; font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="logo">A</div>
+    <div class="kicker">Guide gratuit</div>
+    <h1>Récupère 5 heures par semaine</h1>
+    <div class="sub">Le guide du papa débordé — un exercice simple pour voir où part vraiment ton temps, et 3 fuites à colmater cette semaine.</div>
+    <div class="brandline">ACCOMPAGNON · PAPA PRÉSENT</div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Pourquoi ce guide</div>
+    <h2>T'as l'impression de courir tout le temps, pis de jamais en faire assez?</h2>
+    <p>
+      Le réveil sonne, pis c'est déjà le sprint : job, trafic, souper, dodo. Le week-end arrive, pis c'est
+      une liste de tâches, pas du vrai temps en famille. À la fin de la journée, il te reste zéro énergie —
+      ni pour ta blonde, ni pour toi.
+    </p>
+    <p>
+      La plupart des pères qui vivent ça pensent que le problème, c'est le manque de temps. En réalité,
+      <strong>c'est rarement le vrai problème.</strong> Le vrai problème, c'est qu'on a perdu le contrôle de
+      son horaire et de son énergie — sans jamais avoir pris 20 minutes pour regarder où ça part vraiment.
+    </p>
+    <div class="callout">
+      Ce guide te donne un seul exercice, simple et concret : le <strong>Bilan 168h</strong>. Fais-le une fois,
+      pis tu vas voir noir sur blanc où sont tes 3 plus grosses fuites de temps.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Le concept</div>
+    <h2>Le Bilan 168 heures</h2>
+    <p>
+      Une semaine, c'est 168 heures. Pas 40, pas 60 — 168. La plupart d'entre nous n'ont jamais vraiment
+      regardé où elles s'en vont toutes.
+    </p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="t"><b>Choisis une semaine normale</b>Pas une semaine de vacances ou de fou — une semaine typique.</div></div>
+      <div class="step"><div class="n">2</div><div class="t"><b>Remplis le tableau chaque soir</b>2 minutes avant de te coucher, tu notes tes heures approximatives par catégorie de la journée.</div></div>
+      <div class="step"><div class="n">3</div><div class="t"><b>Regarde les totaux</b>Additionne à la fin de la semaine — c'est souvent là que la vraie surprise arrive.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">L'exercice</div>
+    <h2>Ton tableau de la semaine</h2>
+    <p>Note tes heures approximatives (sur 24h) pour chaque catégorie, chaque jour. Clique dans une case et tape ton chiffre — le total se calcule tout seul.</p>
+    <div class="tracker-wrap">
+      <table class="tracker" id="trackerTable">
+        <thead>
+          <tr><th>Catégorie</th><th>Lun</th><th>Mar</th><th>Mer</th><th>Jeu</th><th>Ven</th><th>Sam</th><th>Dim</th><th>Total</th></tr>
+        </thead>
+        <tbody id="trackerBody"></tbody>
+        <tfoot>
+          <tr id="trackerFootRow"><td>Total / jour</td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="tracker-actions">
+      <button class="btn btn-reset" onclick="resetTracker()">Réinitialiser</button>
+      <span class="tracker-msg" id="trackerMsg">168h dans une semaine — vise juste, pas exact à la minute.</span>
+    </div>
+    <div class="callout" style="margin-top:20px;">
+      Une fois rempli, pose-toi juste une question : <strong>« Est-ce que ça ressemble à la vie que je veux
+      donner à ma famille? »</strong> Pas besoin de réponse parfaite — juste honnête.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Ce qu'on trouve le plus souvent</div>
+    <h2>3 fuites de temps qui reviennent tout le temps</h2>
+    <div class="leak">
+      <div class="lt"><span>1.</span>Le chaos du dimanche soir non planifié</div>
+      <div class="ld">Sans 20 minutes de planif le dimanche, le lundi matin part en chaos — pis ce chaos-là
+      coûte facilement 3-4 heures dans la semaine en imprévus, oublis et replanification de dernière minute.</div>
+    </div>
+    <div class="leak">
+      <div class="lt"><span>2.</span>Le temps « famille » jamais bloqué à l'agenda</div>
+      <div class="ld">Ce qui n'est pas à l'agenda finit par disparaître en premier. Un bloc famille protégé,
+      même court, vaut plus que des « bonnes intentions » qui sautent à la première urgence de job.</div>
+    </div>
+    <div class="leak">
+      <div class="lt"><span>3.</span>La charge mentale des décisions répétées</div>
+      <div class="ld">Redécider chaque jour du souper, du transport, de qui fait quoi — ça épuise autant que
+      les tâches elles-mêmes. Des routines simples et écrites une fois règlent ça pour de bon.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Prochaine étape</div>
+    <h2>Fais l'exercice ce soir</h2>
+    <p>
+      Tu vas probablement être surpris de voir où partent vraiment tes heures. C'est normal — c'est
+      justement le point : on ne peut pas changer ce qu'on n'a jamais mesuré.
+    </p>
+    <p>
+      Si après avoir fait ton Bilan 168h tu veux de l'aide pour transformer ça en un vrai système —
+      planif hebdo, routines qui tiennent, plus de présence à la maison — c'est exactement ce qu'on
+      travaille ensemble dans <strong>Papa Présent</strong>.
+    </p>
+    <div class="cta-box">
+      <div class="t1">Un appel gratuit de 30 minutes, sans pression</div>
+      <div class="t2">On regarde ton horaire ensemble et tu repars avec 2-3 pistes concrètes — qu'on travaille ensemble ou non.</div>
+      <a class="link" href="https://papa-present.accompagnon.com/" target="_blank" rel="noopener">papa-present.accompagnon.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>Papa Présent, un programme d'Accompagnon</footer>
+
+<script>
+  const CATS = ["Sommeil","Travail","Transport","Famille / enfants","Couple","Tâches ménagères","Écrans / perso","Autre"];
+  const DAYS = 7;
+  const tbody = document.getElementById('trackerBody');
+  const footRow = document.getElementById('trackerFootRow');
+
+  function buildTracker() {
+    tbody.innerHTML = '';
+    CATS.forEach((cat, r) => {
+      const tr = document.createElement('tr');
+      const nameTd = document.createElement('td');
+      nameTd.textContent = cat;
+      tr.appendChild(nameTd);
+      for (let d = 0; d < DAYS; d++) {
+        const td = document.createElement('td');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.inputMode = 'decimal';
+        input.dataset.row = r;
+        input.dataset.col = d;
+        input.addEventListener('input', onInputChange);
+        td.appendChild(input);
+        tr.appendChild(td);
+      }
+      const totalTd = document.createElement('td');
+      totalTd.id = 'rowtotal-' + r;
+      totalTd.textContent = '0';
+      totalTd.style.fontWeight = '700';
+      totalTd.style.color = 'var(--plum)';
+      tr.appendChild(totalTd);
+      tbody.appendChild(tr);
+    });
+    // foot row: day totals + grand total
+    while (footRow.children.length > 1) footRow.removeChild(footRow.lastChild);
+    for (let d = 0; d < DAYS; d++) {
+      const td = document.createElement('td');
+      td.id = 'coltotal-' + d;
+      td.textContent = '0';
+      footRow.appendChild(td);
+    }
+    const grand = document.createElement('td');
+    grand.id = 'grandtotal';
+    grand.textContent = '0';
+    footRow.appendChild(grand);
+  }
+
+  function parseVal(v) {
+    const n = parseFloat((v || '').replace(',', '.'));
+    return isNaN(n) ? 0 : n;
+  }
+
+  function recompute() {
+    let grand = 0;
+    for (let r = 0; r < CATS.length; r++) {
+      let rowTotal = 0;
+      for (let d = 0; d < DAYS; d++) {
+        const input = tbody.querySelector(`input[data-row="${r}"][data-col="${d}"]`);
+        rowTotal += parseVal(input.value);
+      }
+      document.getElementById('rowtotal-' + r).textContent = rowTotal.toFixed(1).replace(/\.0$/, '');
+      grand += rowTotal;
+    }
+    for (let d = 0; d < DAYS; d++) {
+      let colTotal = 0;
+      for (let r = 0; r < CATS.length; r++) {
+        const input = tbody.querySelector(`input[data-row="${r}"][data-col="${d}"]`);
+        colTotal += parseVal(input.value);
+      }
+      document.getElementById('coltotal-' + d).textContent = colTotal.toFixed(1).replace(/\.0$/, '');
+    }
+    document.getElementById('grandtotal').textContent = grand.toFixed(1).replace(/\.0$/, '');
+    const msg = document.getElementById('trackerMsg');
+    if (grand > 0) {
+      const remaining = (168 - grand).toFixed(1).replace(/\.0$/, '');
+      msg.textContent = grand > 168
+        ? `Total actuel : ${grand.toFixed(1).replace(/\.0$/, '')}h — un peu plus que 168h, ajuste tes estimations.`
+        : `Total actuel : ${grand.toFixed(1).replace(/\.0$/, '')}h sur 168h (il reste ${remaining}h à répartir).`;
+    } else {
+      msg.textContent = "168h dans une semaine — vise juste, pas exact à la minute.";
+    }
+  }
+
+  function onInputChange() { recompute(); }
+
+  function resetTracker() {
+    tbody.querySelectorAll('input').forEach(i => i.value = '');
+    recompute();
+  }
+
+  buildTracker();
+  recompute();
+</script>
+
+</body>
+</html>
