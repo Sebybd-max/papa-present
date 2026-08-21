@@ -40,7 +40,7 @@
 --dur-slow:600ms;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;scroll-padding-top:88px;}
+html{scroll-behavior:smooth;scroll-padding-top:88px;overflow-x:hidden;max-width:100%;}
 body{
 font-family:-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif;
 color:var(--ink);
@@ -87,6 +87,21 @@ header .container{display:flex;align-items:center;justify-content:space-between;
 .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--coral);transform:scaleX(0);transform-origin:right;transition:transform var(--dur) var(--ease-out);}
 .nav-links a:hover{color:var(--ink);}
 .nav-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+
+.menu-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:38px;height:38px;flex-shrink:0;background:none;border:none;cursor:pointer;padding:0;border-radius:10px;transition:background var(--dur-fast) ease;}
+.menu-toggle:hover{background:rgba(49,55,87,0.06);}
+.menu-toggle span{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px;transition:transform var(--dur) var(--ease-out), opacity var(--dur-fast) ease;}
+.menu-toggle.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.menu-toggle.is-open span:nth-child(2){opacity:0;}
+.menu-toggle.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-nav-backdrop{position:fixed;inset:0;background:rgba(15,18,38,0.4);backdrop-filter:blur(2px);z-index:98;opacity:0;pointer-events:none;transition:opacity var(--dur) ease;}
+.mobile-nav-backdrop.is-open{opacity:1;pointer-events:auto;}
+.mobile-nav{display:block;position:fixed;top:0;right:0;height:100vh;width:min(320px, 84vw);background:var(--surface);box-shadow:var(--shadow-lg);padding:100px 32px 40px;transform:translateX(100%);transition:transform var(--dur) var(--ease-out);z-index:99;overflow-y:auto;}
+.mobile-nav.is-open{transform:translateX(0);}
+.mobile-nav-links{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:28px;}
+.mobile-nav-links a{display:block;padding:15px 4px;font-size:17px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line);}
+body.nav-open{overflow:hidden;}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:980px;font-weight:600;font-size:15px;cursor:pointer;border:none;position:relative;isolation:isolate;overflow:hidden;transition:transform var(--dur-fast) var(--ease-out), box-shadow var(--dur) var(--ease-out), background var(--dur-fast) ease;letter-spacing:-0.01em;white-space:nowrap;}
 .btn::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 55%);opacity:.9;pointer-events:none;}
@@ -252,13 +267,41 @@ footer{background:#14172c;color:rgba(255,255,255,0.4);text-align:center;padding:
 footer .logo-text{color:#fff;}
 footer .logo{justify-content:center;margin-bottom:12px;}
 
-@media (max-width:900px){.nav-links{display:none;}}
+@media (max-width:900px){
+.nav-links{display:none;}
+.nav-cta-desktop{display:none;}
+.menu-toggle{display:flex;}
+}
+@media (min-width:901px){
+.mobile-nav, .mobile-nav-backdrop{display:none;}
+}
+@media (min-width:721px) and (max-width:1024px){
+.section{padding:104px 0;}
+.founder-box{grid-template-columns:220px 1fr;gap:40px;}
+.founder-photo-wrap{width:200px;height:200px;}
+.avatar-box{padding:48px 36px;gap:40px;}
+.transform-grid{gap:20px;}
+.pricing-wrap{gap:18px;}
+.price-card{padding:40px 30px;}
+}
+@media (max-width:900px){
+.container{padding:0 24px;}
+}
 @media (max-width:720px){
 .hero{padding:96px 0 68px;}
 .section{padding:80px 0;}
 .pain-quote{padding:34px;}
 .price-card{padding:38px 28px;}
 .orb{display:none;}
+}
+@media (max-width:480px){
+.container{padding:0 20px;}
+.countdown{gap:6px;}
+.cd-item{padding:12px 8px;min-width:0;flex:1;}
+.cd-item .v{font-size:19px;}
+.cd-item .u{font-size:8.5px;letter-spacing:.03em;}
+.brand-sub{display:none;}
+.hero h1{padding:0 4px;}
 }
 @media (hover:none){.tilt{transform:none !important;}}
 </style>
@@ -285,9 +328,22 @@ footer .logo{justify-content:center;margin-bottom:12px;}
 <li><a href="#tarif">Tarif</a></li>
 <li><a href="#faq">FAQ</a></li>
 </ul>
-<a href="https://calendly.com/accompagnon/bilan-temps-famille-30-min-gratuit" class="btn btn-coral btn-small magnetic" target="_blank" rel="noopener">Réserver mon appel</a>
+<a href="https://calendly.com/accompagnon/bilan-temps-famille-30-min-gratuit" class="btn btn-coral btn-small magnetic nav-cta-desktop" target="_blank" rel="noopener">Réserver mon appel</a>
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileNav">
+<span></span><span></span><span></span>
+</button>
 </div>
 </header>
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav" id="mobileNav">
+<ul class="mobile-nav-links">
+<li><a href="#offre">Offre</a></li>
+<li><a href="#sessions">Programme</a></li>
+<li><a href="#tarif">Tarif</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+<a href="https://calendly.com/accompagnon/bilan-temps-famille-30-min-gratuit" class="btn btn-coral btn-full magnetic" target="_blank" rel="noopener">Réserver mon appel</a>
+</div>
 
 <section class="hero">
 <div class="orb orb-1"></div>
@@ -644,6 +700,30 @@ const open = item.classList.toggle('is-open');
 btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 });
+
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+function closeMobileNav() {
+menuToggle.classList.remove('is-open');
+mobileNav.classList.remove('is-open');
+mobileNavBackdrop.classList.remove('is-open');
+menuToggle.setAttribute('aria-expanded', 'false');
+document.body.classList.remove('nav-open');
+}
+function openMobileNav() {
+menuToggle.classList.add('is-open');
+mobileNav.classList.add('is-open');
+mobileNavBackdrop.classList.add('is-open');
+menuToggle.setAttribute('aria-expanded', 'true');
+document.body.classList.add('nav-open');
+}
+menuToggle.addEventListener('click', () => {
+if (mobileNav.classList.contains('is-open')) closeMobileNav(); else openMobileNav();
+});
+mobileNavBackdrop.addEventListener('click', closeMobileNav);
+mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMobileNav(); });
 
 // Édite manuellement le nombre de places vendues ici
 const spotsSold = 0; // 0 à 10
